@@ -1,9 +1,11 @@
 ﻿using CrudProdutosApiWithAspNetCore.Dominio.Repositorios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[Controller]")]
     public class ProdutosController: ControllerBase
     {
@@ -16,8 +18,9 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var data = await _produtoRepositorio.GetAsync();
+            var data = await _produtoRepositorio.GetAllAsync();
             return Ok(data);
         }
+        
     }
 }

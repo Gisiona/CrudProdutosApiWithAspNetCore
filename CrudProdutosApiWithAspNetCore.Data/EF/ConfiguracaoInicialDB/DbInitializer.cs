@@ -20,6 +20,11 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.ConfiguracaoInicialDB
                     new Produto() { Id = 2, Nome = "Iphone 7 Plus 32 Gigas", Preco = 2800.00M, CategoriaId = 2 },
                     new Produto() { Id = 3, Nome = "Notebook DELL Core I5", Preco = 1800.00M, CategoriaId = 3 }
                     );
+
+            modelBuilder.Entity<Usuario>()
+               .HasData(
+                    new Usuario() { Id = 1, Nome = "gisiona", Email = "gil-real@hotmail.com", Senha = "123456" }                
+                   );
         }
     }
 }

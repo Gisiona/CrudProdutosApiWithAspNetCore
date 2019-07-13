@@ -35,8 +35,9 @@ namespace CrudProdutosApiWithAspNetCore.Data.DataContext
 
             // Mapeamento das entidades do banco de dados
             modelBuilder.ApplyConfiguration(new ProdutoMap());
-            modelBuilder.ApplyConfiguration(new CategoriaMap());           
-                      
+            modelBuilder.ApplyConfiguration(new CategoriaMap());
+            modelBuilder.ApplyConfiguration(new UsuarioMap());
+
             modelBuilder.Seed();
         }
     }

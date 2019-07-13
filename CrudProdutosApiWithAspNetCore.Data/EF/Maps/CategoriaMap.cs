@@ -11,6 +11,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Maps
             // Table / PK
             builder.ToTable(nameof(Categoria))
               .HasKey(p => p.HashId);
+            
 
             // Colunas
             builder.Property(p => p.HashId)
@@ -31,6 +32,8 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Maps
             builder.Property(p => p.DataAlteracao)
                .HasColumnType("datetime")
                .IsRequired();
+
+            
         }
     }
 }

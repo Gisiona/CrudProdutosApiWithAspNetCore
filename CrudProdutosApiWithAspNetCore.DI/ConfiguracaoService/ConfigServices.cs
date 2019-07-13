@@ -20,6 +20,7 @@ namespace CrudProdutosApiWithAspNetCore.DI.ConfiguracaoService
             services.AddScoped<ApiWithAspNetCoreDataContext>();
             services.AddTransient<Dominio.Repositorios.IProdutoRepositorio, Data.EF.Repositorios.ProdutoRepositorioEF>();
             services.AddTransient<Dominio.Repositorios.ICategoriaRepositorio, Data.EF.Repositorios.CategoriaRepositorioEF>();
+            services.AddTransient<Dominio.Repositorios.IUsuarioRepositorio, Data.EF.Repositorios.UsuarioRepositorioEF>();
 
         }
     }

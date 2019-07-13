@@ -10,8 +10,7 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Repositorios
         void Update(TEntity entity);
         void Delete(TEntity entity);
 
-        Task<IEnumerable<TEntity>> GetAsync();
-        Task<TEntity> GetAsync(object id);
-
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity> GetByIdAsync(object id);
     }
 }

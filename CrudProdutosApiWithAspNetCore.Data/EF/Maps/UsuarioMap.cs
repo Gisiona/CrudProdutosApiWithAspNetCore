@@ -4,27 +4,32 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CrudProdutosApiWithAspNetCore.Data.EF.Maps
 {
-    public class ProdutoMap : IEntityTypeConfiguration<Produto>
+    class UsuarioMap : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(EntityTypeBuilder<Produto> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             // Table / PK
-            builder.ToTable(nameof(Produto))
+            builder.ToTable(nameof(Usuario))
               .HasKey(p => p.HashId);
+
             
 
             // Colunas
             builder.Property(p => p.HashId)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(p => p.Nome)
+            builder.Property(p => p.Email)
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder.Property(p => p.Preco)
-               .HasColumnType("money")
+            builder.Property(p => p.Nome)
+               .HasColumnType("varchar(100)")
                .IsRequired();
 
+            builder.Property(p => p.Senha)
+               .HasColumnType("varchar(50)")
+               .IsRequired();
+            
             builder.Property(p => p.DataCadastro)
                 .HasColumnType("datetime")
                 .IsRequired();
