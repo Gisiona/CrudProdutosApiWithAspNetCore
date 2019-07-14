@@ -19,7 +19,7 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetUsuarioAll()
         {
             var data = await _usuarioRepositorio.GetAllAsync();
             if(data != null)
@@ -31,7 +31,7 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetUsuarioById(int id)
         {
             var data = await _usuarioRepositorio.GetByIdAsync(id);
             if (data != null)
@@ -64,7 +64,7 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         public async Task<IActionResult> DeleteUsuario([FromBody] Usuario usuario)
         {
             _usuarioRepositorio.Delete(usuario);
-            return Ok();
+            return Ok("Registro excluído com sucesso.");
         }
     }
 }
