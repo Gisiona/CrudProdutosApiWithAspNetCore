@@ -24,30 +24,32 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(object id)
+
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-           return await _context.Set<TEntity>().FindAsync(id);           
+            return await _context.Set<TEntity>().FindAsync(id);
         }
 
 
-        public void Add(TEntity entity)
+        public async Task<TEntity>  Add(TEntity entity)
         {
             _context.Add(entity);
             _context.SaveChanges();
-
+            return entity;
         }
+                 
+
+        public async Task<TEntity> Update(TEntity entity)
+        {
+            _context.Update(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
 
         public void Delete(TEntity entity)
         {
             _context.Remove(entity);
-            _context.SaveChanges();
-        }
-
-     
-
-        public void Update(TEntity entity)
-        {
-            _context.Update(entity);
             _context.SaveChanges();
         }
     }

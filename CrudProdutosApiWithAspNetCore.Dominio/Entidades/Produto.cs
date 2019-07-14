@@ -8,6 +8,7 @@
         public decimal Preco { get; set; }
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
+        public bool IsAtivo { get; set; } = true;
 
         public void Update(int id, string nome, string descricao, decimal preco, int categoriaId)
         {

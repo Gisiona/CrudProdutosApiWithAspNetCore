@@ -10,11 +10,11 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Maps
         {
             // Table / PK
             builder.ToTable(nameof(Produto))
-              .HasKey(p => p.HashId);
+              .HasKey(p => p.Id);
             
 
             // Colunas
-            builder.Property(p => p.HashId)
+            builder.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(p => p.Nome)

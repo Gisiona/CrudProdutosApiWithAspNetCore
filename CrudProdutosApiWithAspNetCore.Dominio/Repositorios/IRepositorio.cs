@@ -6,11 +6,10 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Repositorios
 {
     public interface IRepositorio<TEntity> where TEntity : EntidadeBase
     {
-        void Add(TEntity entity);
-        void Update(TEntity entity);
+        Task<TEntity> Add(TEntity entity);
+        Task<TEntity> Update(TEntity entity);
         void Delete(TEntity entity);
-
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity> GetByIdAsync(object id);
+        Task<TEntity> GetByIdAsync(int id);
     }
 }

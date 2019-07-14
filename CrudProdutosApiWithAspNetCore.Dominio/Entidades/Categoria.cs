@@ -10,7 +10,7 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Entidades
         public bool IsAtivo { get; set; } = true;
 
         public ICollection<Produto> Produtos { get; set; }
-
+        
         public void Update(int _id, string _nome, string _descricao, bool _isAtivo)
         {
             Id = _id;
