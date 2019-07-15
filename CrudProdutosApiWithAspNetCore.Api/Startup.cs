@@ -22,7 +22,13 @@ namespace CrudProdutosApiWithAspNetCore.Api
         // This method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                    // configuração para iignorar valores nulos.
+                    .AddJsonOptions(
+                        options => 
+                            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                            );
+
             services.AddDependencies();
 
 

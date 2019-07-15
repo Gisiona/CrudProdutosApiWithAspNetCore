@@ -1,17 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/v1/[Controller]")]
     public class TesteController: ControllerBase
     {
+        [HttpGet]
         public ActionResult get()
         {
-            return Ok("passei e retornei");
+            return Ok("TUDO OK.");
         }
     }
 }

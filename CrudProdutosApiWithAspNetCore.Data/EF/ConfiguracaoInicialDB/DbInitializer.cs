@@ -25,6 +25,14 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.ConfiguracaoInicialDB
                .HasData(
                     new Usuario() { Id = 1, Nome = "gisiona", Email = "gil-real@hotmail.com", Senha = "123456" }                
                    );
+
+            modelBuilder.Entity<Desejo>()
+              .HasData(
+                   new Desejo() { Id = 1, Descricao = "Lista de casamento do Gisiona e Andreia", UsuarioId = 1, ProdutoId = 1 },
+                   new Desejo() { Id = 2, Descricao = "Lista de casamento do Gisiona e Andreia", UsuarioId = 1, ProdutoId = 2 },
+                   new Desejo() { Id = 3, Descricao = "Lista de casamento do Gisiona e Andreia", UsuarioId = 1, ProdutoId = 3 }
+                  );
+
         }
     }
 }

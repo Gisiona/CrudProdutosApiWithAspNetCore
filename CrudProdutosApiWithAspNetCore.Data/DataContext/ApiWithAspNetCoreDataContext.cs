@@ -21,6 +21,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.DataContext
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Desejo> Desejos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,6 +38,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.DataContext
             modelBuilder.ApplyConfiguration(new ProdutoMap());
             modelBuilder.ApplyConfiguration(new CategoriaMap());
             modelBuilder.ApplyConfiguration(new UsuarioMap());
+            modelBuilder.ApplyConfiguration(new DesejoMap());
 
             modelBuilder.Seed();
         }

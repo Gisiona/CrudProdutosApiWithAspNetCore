@@ -21,6 +21,7 @@ namespace CrudProdutosApiWithAspNetCore.DI.ConfiguracaoService
             services.AddTransient<Dominio.Repositorios.IProdutoRepositorio, Data.EF.Repositorios.ProdutoRepositorioEF>();
             services.AddTransient<Dominio.Repositorios.ICategoriaRepositorio, Data.EF.Repositorios.CategoriaRepositorioEF>();
             services.AddTransient<Dominio.Repositorios.IUsuarioRepositorio, Data.EF.Repositorios.UsuarioRepositorioEF>();
+            services.AddTransient<Dominio.Repositorios.IDesejoRepositorio, Data.EF.Repositorios.DesejoRepositorioEF>();
 
         }
     }

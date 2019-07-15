@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 {
-    [Route("api/v1/[Controller]")]
+    [Route("api/v1/token")]
     public class TokenController: ControllerBase
     {
         private readonly IConfiguration _configuration;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 {
     [Authorize]
-    [Route("api/v1/[Controller]")]
+    [Route("api/v1/users")]
     public class UsuariosController: ControllerBase
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;

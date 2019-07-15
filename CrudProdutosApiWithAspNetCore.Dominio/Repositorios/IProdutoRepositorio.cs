@@ -7,5 +7,7 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Repositorios
     public interface IProdutoRepositorio : IRepositorio<Produto>
     {
         Task<IEnumerable<Produto>> GetByNomeAsync(string name);
+        Task<IEnumerable<Produto>> GetAllWithCategoriaAsync();
+        Task<Produto> GetByIdWithCategoriaAsync(int id);
     }
 }
