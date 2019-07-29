@@ -13,7 +13,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
         }
 
 
-       public async Task<Usuario> GetByEmailAsync(string email)
+       public async Task<Usuario> GetUserByEmailAsync(string email)
         {
             return _db.Where(p => p.Email.Contains(email)).FirstOrDefault();
         }

@@ -1,6 +1,8 @@
 ﻿using CrudProdutosApiWithAspNetCore.Dominio.Entidades;
 using CrudProdutosApiWithAspNetCore.Dominio.Repositorios;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -35,10 +37,23 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         }
 
 
+        [HttpGet("{userid}/{pagesize}/{page}")]
+        public async Task<IActionResult> GetAllDesejosByUserIdSearchPagination(int userid, int pageSize =5, int page =1 )
+        {
+            IList<Desejo> data = (IList<Desejo>) await _desejoRepositorio.GetDesejosByUserIdAsync(userid);
+            int totalPaginas = data.Count / Convert.ToInt32(pageSize);            
+           
+            HttpContext.Response.HttpContext.Response.Headers.TryAdd("X-Pages-TotalPages", totalPaginas.ToString());
+
+            if (data == null) { return NotFound("Registro não encontrado."); }
+            return Ok(data);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDesejoById(int id)
         {
-            var data = await _desejoRepositorio.GetDesejosByIdWithProdutosAsync(id);
+            var data = await _desejoRepositorio.GetDesejosByIdAsync(id);
 
             if (data == null) { return NotFound("Registro não encontrado."); }
             return Ok(data);
@@ -59,23 +74,40 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDesejoByIdAndUserId(int id, [FromBody] Desejo desejo)
         {
-            var dese = await _desejoRepositorio.GetByIdAsync(id);
-            if (dese == null) { return NotFound("Registro não encontrado."); }
-            
-            var data = await _desejoRepositorio.Update(dese);
+            if (desejo.UsuarioId <= 0)
+            {
+
+            }
+            else if (desejo.ProdutoId <= 0)
+            {
+
+            }
+            else if (desejo.Id <= 0)
+            {
+
+            }
+            else if (string.IsNullOrEmpty(desejo.Descricao))
+            {
+
+            }
+
+            Task<Desejo> _desejo = _desejoRepositorio.GetDesejoByIdAndUserIdAndProductIdAsync(desejo.Id, desejo.UsuarioId, desejo.ProdutoId);
+
+            if(_desejo.Result == null) { return NotFound("Registro do desejo não encontrado."); }
+
+            var data = await _desejoRepositorio.UpdateDesejoAsync(_desejo.Result);
 
             return Ok(data);
         }
 
-        [HttpDelete("{userid}/{productid}")]
-        public async Task<IActionResult> DeleteDesejoByUserIdAndByProductId(int userid, int productid, [FromBody] Desejo _desejo)
+        [HttpDelete("{wisheid}/{userid}/{productid}")]
+        public async Task<IActionResult> DeleteDesejoDesejoByIdAndUserIdAndByProductId(int wisheid, int userid, int productid)
         {
-            var data = await _desejoRepositorio.GetDesejoByUserIdAndProductIdAsync(userid, productid);
-
-
-            if (data == null) { return NotFound("Registro não encontrado."); }            
+            Task<Desejo> data = _desejoRepositorio.GetDesejoByIdAsync(wisheid);
             
-            _desejoRepositorio.Delete(_desejo);
+            if (data.Result == null) { return NotFound("Registro não encontrado."); }            
+            
+            _desejoRepositorio.Delete(data.Result);
 
             return Ok("Wishe excluído com sucesso.");
         }

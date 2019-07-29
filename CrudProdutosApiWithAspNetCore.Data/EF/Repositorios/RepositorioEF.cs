@@ -21,7 +21,9 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await _context.Set<TEntity>()
+                .AsNoTracking()
+                .ToListAsync();
         }
 
 

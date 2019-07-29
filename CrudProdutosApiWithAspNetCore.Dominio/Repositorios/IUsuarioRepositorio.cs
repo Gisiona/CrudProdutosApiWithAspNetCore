@@ -5,6 +5,6 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Repositorios
 {
     public interface IUsuarioRepositorio: IRepositorio<Usuario>
     {        
-        Task<Usuario> GetByEmailAsync(string email);
+        Task<Usuario> GetUserByEmailAsync(string email);
     }
 }

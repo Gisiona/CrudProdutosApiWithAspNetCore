@@ -31,6 +31,7 @@ namespace CrudProdutosApiWithAspNetCore.Api
 
             services.AddDependencies();
 
+            
 
             // configuracao do token de autenticacao
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -63,6 +64,9 @@ namespace CrudProdutosApiWithAspNetCore.Api
                         };
 
                     });
+
+            // documentacao
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

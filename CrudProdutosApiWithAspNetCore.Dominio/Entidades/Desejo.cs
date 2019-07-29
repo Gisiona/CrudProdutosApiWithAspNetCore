@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Flunt.Notifications;
+using Flunt.Validations;
 
 namespace CrudProdutosApiWithAspNetCore.Dominio.Entidades
 {
@@ -15,6 +13,15 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Entidades
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
 
+        //public void Validate()
+        //{
+        //    AddNotifications(
+        //        new Contract()
+        //        .IsNotNullOrEmpty(Descricao, "Descricao","O campo descrição não permite valor nulo.")
+        //        .IsGreaterThan(ProdutoId, 1,"ProdutoId", "Produto do pedido inválido")
+        //        .IsGreaterThan(ProdutoId, 1,"UsuarioId", "Usuário do pedido inválido")               
+        //        );
+        //}
       
     }
 }

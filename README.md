@@ -16,3 +16,4 @@ API
 API
     - Microsoft.AspNet.WebApi.Versioning
     - Microsoft.AspNet.WebApi.Versioning.ApiExplorer
+    - Install-Package Flunt -Version 1.0.3

@@ -29,7 +29,7 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> GetToken([FromBody] Usuario usuario)
         {
-            Usuario _usuario = await _usuarioRepositorio.GetByEmailAsync(usuario.Email);
+            Usuario _usuario = await _usuarioRepositorio.GetUserByEmailAsync(usuario.Email);
             var _token = string.Empty;
             if (_usuario !=null)
             {
