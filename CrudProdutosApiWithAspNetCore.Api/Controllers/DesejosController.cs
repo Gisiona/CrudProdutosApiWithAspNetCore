@@ -1,5 +1,7 @@
-﻿using CrudProdutosApiWithAspNetCore.Dominio.Entidades;
+﻿using CrudProdutosApiWithAspNetCore.Api.Models.SaidaRetorno;
+using CrudProdutosApiWithAspNetCore.Dominio.Entidades;
 using CrudProdutosApiWithAspNetCore.Dominio.Repositorios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CrudProdutosApiWithAspNetCore.Api.Controllers
 {
+    [Authorize]
     [Route("api/v1/wishes")]
     public class DesejosController : ControllerBase
     {
@@ -23,7 +26,26 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         public async Task<IActionResult> GetAllDesejos()
         {
             var data = await _desejoRepositorio.GetAllAsync();
-            return Ok(data);
+
+            if (data == null)
+            {
+                return NotFound(
+                new ResultadoViewModel()
+                {
+                    StatusCode = NotFound().StatusCode,
+                    Sucesso = false,
+                    Mensagem = "Registro não encontrado.",
+                    Data = data
+                });
+            }
+
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Registro retornado com sucesso.",
+                Data = data
+            });            
         }
 
 
@@ -32,8 +54,25 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         {
             var data = await _desejoRepositorio.GetDesejosByUserIdAsync(userid);
 
-            if(data == null) { return NotFound("Registro não encontrado.");}
-            return Ok(data);
+            if (data == null)
+            {
+                return NotFound(
+                new ResultadoViewModel()
+                {
+                    StatusCode = NotFound().StatusCode,
+                    Sucesso = false,
+                    Mensagem = "Registro não encontrado.",
+                    Data = data
+                });
+            }
+
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Registro retornado com sucesso.",
+                Data = data
+            });
         }
 
 
@@ -45,59 +84,96 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
            
             HttpContext.Response.HttpContext.Response.Headers.TryAdd("X-Pages-TotalPages", totalPaginas.ToString());
 
-            if (data == null) { return NotFound("Registro não encontrado."); }
-            return Ok(data);
+            if (data == null)
+            {
+                return NotFound(
+                new ResultadoViewModel()
+                    {
+                       StatusCode = NotFound().StatusCode,
+                       Sucesso = false,
+                       Mensagem = "Registro não encontrado.",
+                       Data = data
+                });
+            }
+
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Registro retornado com sucesso.",
+                Data = data
+            });
         }
 
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDesejoById(int id)
         {
-            var data = await _desejoRepositorio.GetDesejosByIdAsync(id);
+            ResultadoViewModel resultado;
+            Task<Desejo> data = _desejoRepositorio.GetDesejoByIdAsync(id);
 
-            if (data == null) { return NotFound("Registro não encontrado."); }
-            return Ok(data);
+            if (data.Result == null)
+            {
+                return NotFound(new ResultadoViewModel()
+                {
+                    StatusCode = NotFound().StatusCode,
+                    Sucesso = false,
+                    Mensagem = "Nenhum registro não encontrado.",
+                    Data = data.Result
+                });
+            }
+               
+            return Ok(resultado = new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Registro retornado com sucesso.",
+                Data = data.Result
+            });
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> PostDesejo([FromBody] Desejo desejo)
         {
             if (!ModelState.IsValid) { return BadRequest();  }
             var data = await _desejoRepositorio.Add(desejo);
-            return Ok(data);
-            //return CreatedAtRoute("id", new { data.Id }, data);
+
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 201,
+                Sucesso = true,
+                Mensagem = "Registro criado com sucesso.",
+                Data = data
+            });
+
         }
-
-
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDesejoByIdAndUserId(int id, [FromBody] Desejo desejo)
+        public async Task<IActionResult> PutDesejoByIdAndUserId([FromBody] Desejo desejo)
         {
-            if (desejo.UsuarioId <= 0)
-            {
-
-            }
-            else if (desejo.ProdutoId <= 0)
-            {
-
-            }
-            else if (desejo.Id <= 0)
-            {
-
-            }
-            else if (string.IsNullOrEmpty(desejo.Descricao))
-            {
-
-            }
-
             Task<Desejo> _desejo = _desejoRepositorio.GetDesejoByIdAndUserIdAndProductIdAsync(desejo.Id, desejo.UsuarioId, desejo.ProdutoId);
 
-            if(_desejo.Result == null) { return NotFound("Registro do desejo não encontrado."); }
+            if(_desejo.Result == null)
+            {
+                return NotFound(
+                    new ResultadoViewModel()
+                    {
+                        StatusCode = NotFound().StatusCode,
+                        Sucesso = false,
+                        Mensagem = "Registro do desejo não encontrado.",
+                        Data = _desejo.Result
+                    });
+            }
 
             var data = await _desejoRepositorio.UpdateDesejoAsync(_desejo.Result);
 
-            return Ok(data);
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Registro atualizado com sucesso.",
+                Data = _desejo.Result
+            });
         }
 
         [HttpDelete("{wisheid}/{userid}/{productid}")]
@@ -105,11 +181,26 @@ namespace CrudProdutosApiWithAspNetCore.Api.Controllers
         {
             Task<Desejo> data = _desejoRepositorio.GetDesejoByIdAsync(wisheid);
             
-            if (data.Result == null) { return NotFound("Registro não encontrado."); }            
+            if (data.Result == null)
+            {
+                return NotFound(new ResultadoViewModel()
+                {
+                    StatusCode = NotFound().StatusCode,
+                    Sucesso = false,
+                    Mensagem = "Registro não encontrado.",
+                    Data = data.Result
+                });
+            }      
             
             _desejoRepositorio.Delete(data.Result);
 
-            return Ok("Wishe excluído com sucesso.");
+            return Ok(new ResultadoViewModel()
+            {
+                StatusCode = 200,
+                Sucesso = true,
+                Mensagem = "Wishe excluído com sucesso.",
+                Data = null
+            });
         }
     }
 }

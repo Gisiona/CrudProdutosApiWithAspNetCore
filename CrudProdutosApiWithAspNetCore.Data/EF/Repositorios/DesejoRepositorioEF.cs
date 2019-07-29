@@ -17,7 +17,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
             _context = ctx;
         }
 
-        public void DeleteDesejoByUserIdAndByProductIdAsync(Desejo desejo)
+        public void DeleteByDesejo(Desejo desejo)
         {          
             _context.Remove(desejo);
             _context.SaveChanges();            
@@ -34,7 +34,7 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
             return await _db.Include(p => p.Produto).Include(p => p.Usuario).Where(p => p.UsuarioId == userId).ToListAsync();
         }
 
-        public async Task<Desejo> GetDesejoByUserIdAndProductIdAsync(int userid, int productid)
+        public async Task<Desejo> GetDesejoByIdAndProductIdAsync(int userid, int productid)
         {
             return await _db.Include(p => p.Produto).Include(p => p.Usuario).Where(p => p.UsuarioId == userid && p.ProdutoId == productid ).FirstOrDefaultAsync();
         }
@@ -64,6 +64,13 @@ namespace CrudProdutosApiWithAspNetCore.Data.EF.Repositorios
         public async Task<Desejo> GetDesejoByIdAsync(int id)
         {
             return await _db.Include(p => p.Produto).Include(p => p.Usuario).Where(p => p.Id == id).FirstOrDefaultAsync();
+        }
+        
+        public void DeleteDesejoById(int desejoId)
+        {
+            Task<Desejo> desejo = GetDesejoByIdAsync(desejoId);
+            _context.Remove(desejo.Result);
+            _context.SaveChanges();
         }
     }
 }

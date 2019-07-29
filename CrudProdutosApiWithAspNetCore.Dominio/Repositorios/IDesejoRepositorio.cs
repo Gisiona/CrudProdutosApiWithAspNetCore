@@ -9,12 +9,13 @@ namespace CrudProdutosApiWithAspNetCore.Dominio.Repositorios
     {
         Task<IEnumerable<Desejo>> GetDesejosByUserIdAsync(int userId);
         Task<IQueryable<Desejo>> GetDesejosByUserIdAsync(int userId, int pageSize, int page);
-        Task<IEnumerable<Desejo>> GetDesejosByIdAsync(int id);
         Task<Desejo> GetDesejoByIdAsync(int id);
-        void DeleteDesejoByUserIdAndByProductIdAsync(Desejo desejo);
-        Task<Desejo> GetDesejoByUserIdAndProductIdAsync(int userid, int productid);
+        void DeleteDesejoById(int desejoId);
+        void DeleteByDesejo(Desejo desejo);
+        Task<Desejo> GetDesejoByIdAndProductIdAsync(int DesejoId, int productid);
         Task<Desejo> GetDesejoByIdAndUserIdAndProductIdAsync(int desejoId, int userid, int productid);
         Task<Desejo> UpdateDesejoAsync(Desejo desejo);
+
         
     }
 }
